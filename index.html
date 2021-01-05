@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <title>Let's play Tic-Tac-Toe!</title>
+  </head>
+  <body>
+
+    <header>
+      <h1 class="animate__animated animate__fadeInDown">Let's play <span style="font-style: italic;">Tic-Tac-Toe!</span>  😄</h1>
+    </header>
+
+      <div class="game">
+        <div class="board js-tilt animate__animated animate__fadeIn">
+          <div id="0" class="square right bottom"><div class="content"></div></div>
+          <div id="1" class="square right bottom left"><div class="content animate__animated animate__fadeIn"></div></div>
+          <div id="2" class="square bottom left"><div class="content"></div></div>
+          <div id="3" class="square top right bottom"><div class="content"></div></div>
+          <div id="4" class="square top right bottom left"><div class="content"></div></div>
+          <div id="5" class="square top bottom left"><div class="content"></div></div>
+          <div id="6" class="square top right"><div class="content"></div></div>
+          <div id="7" class="square top right left"><div class="content"></div></div>
+          <div id="8" class="square top left"><div class="content"></div></div>
+        </div>
+
+      <div class="scoreboard animate__animated animate__fadeInUp">
+        <h2>Scoreboard</h2>
+        <div class="score-container">
+          <div class="score-column">
+            <h3 id="p1-title">Player 1: <span id="p1-score">0</span></h3>
+            <h3 id="p2-title">Player 2: <span id="p2-score">0</span></h3>
+          </div>
+
+          <div id="message-board" class="score-column"></div>
+
+          <div class="score-column">
+            <h3>Mode</h3>
+            <select class="score-select">
+              <option>Player vs Player</option>
+              <option>Player vs Computer</option>
+            </select>
+          </div>
+        </div>
+
+        <div id="reset">Reset</div>
+
+      </div>
+
+    </div>
+
+    <script type="text/javascript" src="js/jquery.js"></script>
+    <script src="https://unpkg.com/tilt.js@1.2.1/dest/tilt.jquery.min.js"></script>
+    <script src="js/main.js" charset="utf-8"></script>
+
+  </body>
+</html>
