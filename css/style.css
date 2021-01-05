@@ -61,8 +61,7 @@ h3 {
   border-radius: 30px;
   background-color: #150bc4;
   opacity: 1;
-  transition: border-color 0.5s ease-out;
-  transition-timing-function: cubic-bezier(0, 0, 0.58, 1);
+  transition: border-color 0.1s cubic-bezier(0.1, 2.7, 0.58, 1);
 }
 
 .board-invert {
@@ -75,7 +74,6 @@ h3 {
   height: 190px;
   cursor: pointer;
   transition: background-color 0.5s ease-out;
-  transition-timing-function: cubic-bezier(0, 0, 0.58, 1);
   border: 2px solid #7bfbcc;
 }
 
@@ -101,7 +99,12 @@ h3 {
   -khtml-user-select: none; /* Konqueror HTML */
   -moz-user-select: none; /* Firefox */
   -ms-user-select: none;
-  transition: color 0.5s ease-out;
+  transition: color 1s ease-out;
+  transition-timing-function: cubic-bezier(0, 0, 0.58, 1);
+}
+
+.test {
+  transition: all 1s ease-out;
   transition-timing-function: cubic-bezier(0, 0, 0.58, 1);
 }
 
@@ -201,4 +204,57 @@ h3 > span {
 #reset {
   padding: 20px;
   cursor: pointer;
+}
+
+/* --------- Welcome Sequence --------- */
+
+.title {
+  color: #7bfbcc;
+  background-color: #150bc4;
+}
+
+.choose-player-name, #start-game {
+  display: none;
+  font-size: 16px;
+  margin: 0;
+  width: 80%;
+  text-align: center;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  color: #150bc4;
+}
+
+.choose-player-name > input {
+  margin: 0;
+  width: 80%;
+  margin-top: 10px;
+  padding: 5px;
+  text-align: center;
+  outline: none;
+  border: none;
+  border-bottom: #150bc4 solid 1px;
+  font-size: 20px;
+  font-family: 'Space Mono', monospace;
+  -webkit-font-smoothing: antialiased;
+  color: #150bc4;
+  background-color: rgba(123, 251, 204, 0);
+}
+
+#start-game {
+  display: none;
+  color: #7bfbcc;
+  border: #7bfbcc solid 1px;
+  background-color: #150bc4;
+  border-radius: 20px;
+  padding: 5px 0px;
+}
+
+#start-game:hover {
+  transition: all 0.25s ease-out;
+  border: #150bc4 solid 1px;
+  color: #150bc4;
+  background-color: #7bfbcc;
 }

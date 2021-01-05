@@ -16,7 +16,7 @@ let player2 = {
 
 let gameStatus = ['', '', '', '', '', '', '', '', ''];
 let gameStatusId = ['', '', '', '', '', '', '', '', ''];
-let gamePlay = true;
+let gamePlay = false;
 let currentPlayer = player1;
 let oponentPlayer = player2;
 
@@ -44,16 +44,58 @@ const invertSquares = function () {
       $('.board').addClass('board-invert');
     }, 25 * i);
   }
+
 };
 
-// Draw mode - invert squares function alt
+// Welcome sequence function - add
+
+const welcomeSec = function () {
+
+  invertSquares();
+  for (let i = 0; i < 9; i++) {
+    $(`#${i}`).find('.content').addClass('content-win');
+  }
+
+  $('#4').addClass('title').find('.content').addClass('title'); // change middle title square to blue
+  $(`#4`).find('.content').html(`Welcome to <span style="font-style: italic; font-weight: 700;">Tic-Tac-Toe!</span>`);
+  $('#message-board').text(`Giddy up! Pick a name to get started!`); // welcome message at bottom of page
+  $(`#p1-name`).attr('style', 'display: block;'); // add in player 1 name form
+  $(`#p2-name`).attr('style', 'display: block;'); // add in player 2 name form
+  $(`#start-game`).attr('style', 'display: block;'); // add in player 2 name form
+
+};
+
+// Welcome sequence function - remove
+
+const hideWelcomeSec = function () {
+
+  $('#4').removeClass('title').find('.content').removeClass('title'); // remove title styling
+  $(`#p1-name`).attr('style', 'display: none;'); // add in player 1 name form
+  $(`#p2-name`).attr('style', 'display: none;'); // add in player 2 name form
+  $(`#start-game`).attr('style', 'display: none;'); // add in player 2 name form
+
+};
+
+// Winner's square styling + message
+
+let winnerSq1;
+let winnerSq2;
+let winnerSq3;
+
+const winningSq = function (first, second, third) {
+  $(`#${first}`).find('.content').addClass('content-invert content-win').html(`<span style="font-style: italic;">${winningMsg()}!</span>`);
+  $(`#${second}`).find('.content').addClass('content-invert content-win').text(`${currentPlayer.name}, you won! 🥳`);
+  $(`#${third}`).find('.content').addClass('content-invert content-win').text(`A point 4 u. Pls reset by clicking the board.`);
+}
+
+// Draw mode - invert squares to maroon function
 
 const invertSquaresDraw = function () {
 
   for (let i = 0; i < 9; i++) {
     setTimeout(function() {
       $(`#${i}`).addClass('square-invert-alt');
-      $(`#4`).find('.content').addClass('content-win').text(`Dangit.🧐 It's a draw. Click to play again.`);;
+      $(`#4`).find('.content').addClass('content-win').text(`Dangit. It's a draw. Click to play again. 🧐`);
     }, 25 * i);
   }
 };
@@ -70,24 +112,47 @@ const resetSquares = function () {
   }
 };
 
-// Winner's squares message
 
-let winnerSq1;
-let winnerSq2;
-let winnerSq3;
+//////////////////////////// WELCOME SEQUENCE //////////////////////////////////
 
-const winningSq = function (first, second, third) {
-  $(`#${first}`).find('.content').addClass('content-invert content-win').html(`<span style="font-style: italic;">${winningMsg()}!</span>`);
-  $(`#${second}`).find('.content').addClass('content-invert content-win').text(`${currentPlayer.name}, you won!`);
-  $(`#${third}`).find('.content').addClass('content-invert content-win').text(`A point 4 u. Pls reset by clicking the board.`);
-}
+// Landing, welcome screen with name allocation
+$(`#4`).find('.content').addClass('content-win').text(`Loading...`);
+$('#message-board').text(`Thinking... Pondering...`);
+
+let welcome = true;
+
+function welcomeScene() {
+
+  setTimeout(function(){
+
+    welcomeSec();
+
+  }, 2300);
+
+};
+
+welcomeScene();
+
+// Start game button function
+$('#start-game').on('click', function () {
+
+  player1.name = $('#p1-name').find('input').val(); // update player1 name to user input
+  player2.name = $('#p2-name').find('input').val(); // update player2 name to user input
+
+  $('#p1-name').text(`${player1.name}: `);
+  $('#p2-name').text(`${player2.name}: `);
+
+  welcome = false;
+  nextPlayerTurn(currentPlayer); // initialises first message to indicate which player starts
+  hideWelcomeSec();
+  resetGame();
+
+});
 
 //////////////////////////////// MESSAGES //////////////////////////////////////
 
 // Guidance message during game
 const nextPlayerTurn = (player) => $('#message-board').text(`It's your turn, ${player.name}!`);
-
-nextPlayerTurn(currentPlayer);
 
 // Draw message
 const drawMessage = () => $('#message-board').text(`It's a draw so no points this round 😭`);
@@ -186,7 +251,7 @@ $('.square').on('click', function () {
     gameValidation();
   }
 
-  else if (gamePlay === false) {
+  else if (gamePlay === false && welcome !== true) {
     resetGame();
   }
 
