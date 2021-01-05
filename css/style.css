@@ -61,6 +61,8 @@ h3 {
   border-radius: 30px;
   background-color: #150bc4;
   opacity: 1;
+  transition: border-color 0.5s ease-out;
+  transition-timing-function: cubic-bezier(0, 0, 0.58, 1);
 }
 
 .board-invert {

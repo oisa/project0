@@ -53,7 +53,7 @@ const invertSquaresDraw = function () {
   for (let i = 0; i < 9; i++) {
     setTimeout(function() {
       $(`#${i}`).addClass('square-invert-alt');
-      $(`#4`).find('.content').addClass('content-win').text(`Dangit. 🧐 It's a draw. Click to play again.`);;
+      $(`#4`).find('.content').addClass('content-win').text(`Dangit.🧐 It's a draw. Click to play again.`);;
     }, 25 * i);
   }
 };
@@ -77,9 +77,9 @@ let winnerSq2;
 let winnerSq3;
 
 const winningSq = function (first, second, third) {
-  $(`#${first}`).addClass('square-invert').find('.content').addClass('content-invert content-win').text(`${winningMsg()}!`);
-  $(`#${second}`).addClass('square-invert').find('.content').addClass('content-invert content-win').text(`${currentPlayer.name}, you gosh darn won!`);
-  $(`#${third}`).addClass('square-invert').find('.content').addClass('content-invert content-win').text(`A point 4 u. Pls reset by clicking here.`);
+  $(`#${first}`).find('.content').addClass('content-invert content-win').html(`<span style="font-style: italic;">${winningMsg()}!</span>`);
+  $(`#${second}`).find('.content').addClass('content-invert content-win').text(`${currentPlayer.name}, you won!`);
+  $(`#${third}`).find('.content').addClass('content-invert content-win').text(`A point 4 u. Pls reset by clicking the board.`);
 }
 
 //////////////////////////////// MESSAGES //////////////////////////////////////
@@ -93,7 +93,7 @@ nextPlayerTurn(currentPlayer);
 const drawMessage = () => $('#message-board').text(`It's a draw so no points this round 😭`);
 
 // Winner's message
-const winningMessages = ['You bloody beauty', 'Whoopee', 'Huzzah', 'w00t', 'Gnarly dude', 'Gee-whizz', 'Goshwow', 'Wicked', 'Dangggg', 'Cowabunga'];
+const winningMessages = ['You bloody beauty', 'Whoopee', 'Huzzah', 'w00t', 'Gnarly dude', 'Gee-whizz', 'Goshwow', 'Wicked', 'Ooft', 'Cowabunga'];
 
 const winningMsg = function () {
   let randomIndex = Math.floor(Math.random() * winningMessages.length);
