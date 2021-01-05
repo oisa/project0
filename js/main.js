@@ -127,7 +127,7 @@ function welcomeScene() {
 
     welcomeSec();
 
-  }, 2300);
+  }, 1800);
 
 };
 
@@ -155,7 +155,7 @@ $('#start-game').on('click', function () {
 const nextPlayerTurn = (player) => $('#message-board').text(`It's your turn, ${player.name}!`);
 
 // Draw message
-const drawMessage = () => $('#message-board').text(`It's a draw so no points this round 😭`);
+const drawMessage = () => $('#message-board').text(`No points this round 😭`);
 
 // Winner's message
 const winningMessages = ['You bloody beauty', 'Whoopee', 'Huzzah', 'w00t', 'Gnarly dude', 'Gee-whizz', 'Goshwow', 'Wicked', 'Ooft', 'Cowabunga'];
