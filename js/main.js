@@ -15,11 +15,18 @@
   }
 
   let gameStatus = ['', '', '', '', '', '', '', '', ''];
-  let currentPlayerTurn = player1.name;
+  let gamePlay = true;
+  let currentPlayer = player1;
+  let oponentPlayer = player2;
 
-  $('#message-board').text(`It's your turn, ${player1.name}!`);
+// Messages
+  const drawMessage = () => $('#message-board').text(`It's a draw!`);
+  const nextPlayerTurn = (player) => $('#message-board').text(`It's your turn, ${player.name}!`);
+  const winMessage = () => $('#message-board').text(`Cowabunga, you won this round ${currentPlayer.name}!`);
 
-  const winningCombinations = [
+  nextPlayerTurn(currentPlayer);
+
+  const winningCombos = [
     [0, 1, 2],
     [3, 4, 5],
     [6, 7, 8],
@@ -38,20 +45,41 @@ const gameValidation = function () {
 
   let weHaveAWinner = false;
 
-  for (let i = 0; i < winningCombinations.length; i++) {
-    const winCombinationSingle = winningCombinations[i];
-    let a  = gameStatus[winCombinationSingle[0]];
-    let b = gameStatus[winCombinationSingle[1]];
-    let c = gameStatus[winCombinationSingle[2]];
+  for (let i = 0; i < winningCombos.length; i++) {
+    const winSequence = winningCombos[i];
+    let a = gameStatus[winSequence[0]];
+    let b = gameStatus[winSequence[1]];
+    let c = gameStatus[winSequence[2]];
+
     if (a === '' || b === '' || c === '') {
       continue;
     }
+
+    if (clickCount === 9 && a !== b && b !== c) {
+      drawMessage();
+      gamePlay = false;
+      break
+    }
+
     if (a === b && b === c) {
       weHaveAWinner = true;
-      console.log(weHaveAWinner);
+      gamePlay = false;
+      break
     }
   }
 
+  if (weHaveAWinner === true) {
+    winMessage();
+    if (currentPlayer === player1){
+      player1.score++
+    }
+    if (currentPlayer === player2){
+      player2.score++
+    }
+  }
+
+  $('#p1-score').text(player1.score);
+  $('#p2-score').text(player2.score);
 }
 
 //////////////////////// FUNCTION IF SQUARE CLICKED ////////////////////////////
@@ -61,32 +89,48 @@ $('.square').on('click', function () {
   let squareId = Number(this.id);
 
 // If the click is even, add an 'x' - Player 1
-  if (clickCount % 2 === 0 && $(`#${squareId}`).find('.content').text() !== player1.symbol && $(`#${squareId}`).find('.content').text() !== player2.symbol) {
+  if (gamePlay === true && clickCount % 2 === 0 && $(`#${squareId}`).find('.content').text() !== player1.symbol && $(`#${squareId}`).find('.content').text() !== player2.symbol) {
     $(`#${squareId}`).find('.content').text(player1.symbol);
+    gameStatus[squareId] = player1.symbol;
     clickCount++;
-    $('#message-board').text(`It's your turn, ${player2.name}!`);
+    currentPlayer = player1;
+    nextPlayerTurn(player2);
     gameValidation();
   }
 
 // If the click is even, add an 'o' - Player 2
-  else if (clickCount % 2 !== 0 && $(`#${squareId}`).find('.content').text() !== player1.symbol && $(`#${squareId}`).find('.content').text() !== player2.symbol){
+  else if (gamePlay === true && clickCount % 2 !== 0 && $(`#${squareId}`).find('.content').text() !== player1.symbol && $(`#${squareId}`).find('.content').text() !== player2.symbol) {
     $(`#${squareId}`).find('.content').text(player2.symbol);
+    gameStatus[squareId] = player2.symbol;
     clickCount++;
-    $('#message-board').text(`It's your turn, ${player1.name}!`);
+    currentPlayer = player2;
+    nextPlayerTurn(player1);
     gameValidation();
   }
 
-  console.log(clickCount);
+  else if (gamePlay === false) {
+    resetGame();
+  }
 
 });
 
 /////////////////////////////// RESET GAME /////////////////////////////////////
 
-$('#reset').on('click', function () {
+// General reset game function
+let resetGame = function () {
+  gamePlay = true;
   $(`.square`).find('.content').text('');
-  $('#message-board').text(`It's your turn, ${player1.name}!`);
+  gameStatus = ['', '', '', '', '', '', '', '', ''];
+  currentPlayer = player1;
+  nextPlayerTurn(player1);
   clickCount = 0;
+};
+
+// Reset button click
+$('#reset').on('click', function () {
+  resetGame();
 });
+
 
 /////////////////////////// MISC STYLE FEATURES ////////////////////////////////
 
