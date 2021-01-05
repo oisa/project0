@@ -15,14 +15,23 @@
   }
 
   let gameStatus = ['', '', '', '', '', '', '', '', ''];
+  let gameStatusId = ['', '', '', '', '', '', '', '', ''];
   let gamePlay = true;
   let currentPlayer = player1;
   let oponentPlayer = player2;
 
 // Messages
-  const drawMessage = () => $('#message-board').text(`It's a draw!`);
+  const winningMessages = ['Cowabunga', 'Whoopee', 'Huzzah', 'w00t', 'Gnarly dude', 'Gee-whizz', 'Goshwow', 'Wicked'];
+  let randomNum = () => Math.round(Math.random() * 10);
+
+  const drawMessage = () => $('#message-board').text(`Would you look at that. It's a draw!`);
   const nextPlayerTurn = (player) => $('#message-board').text(`It's your turn, ${player.name}!`);
-  const winMessage = () => $('#message-board').text(`Cowabunga, you won this round ${currentPlayer.name}!`);
+  const winMessage = function () {
+    $('#message-board').text(`${winningMessages[randomNum()]}! You won this round ${currentPlayer.name}!`);
+
+
+
+  };
 
   nextPlayerTurn(currentPlayer);
 
@@ -47,21 +56,23 @@ const gameValidation = function () {
 
   for (let i = 0; i < winningCombos.length; i++) {
     const winSequence = winningCombos[i];
-    let a = gameStatus[winSequence[0]];
-    let b = gameStatus[winSequence[1]];
-    let c = gameStatus[winSequence[2]];
+    let a = [gameStatus[winSequence[0]], gameStatusId[winSequence[0]]];
+    let b = [gameStatus[winSequence[1]], gameStatusId[winSequence[1]]];
+    let c = [gameStatus[winSequence[2]], gameStatusId[winSequence[2]]];
 
-    if (a === '' || b === '' || c === '') {
+    console.log(`${a}, ${b}, ${c}\nBREAK`);
+
+    if (a[0] === '' || b[0] === '' || c[0] === '') {
       continue;
     }
 
-    if (clickCount === 9 && a !== b && b !== c) {
+    if (clickCount === 9 && a[0] !== b[0] && b[0] !== c[0]) {
       drawMessage();
       gamePlay = false;
       break
     }
 
-    if (a === b && b === c) {
+    if (a[0] === b[0] && b[0] === c[0]) {
       weHaveAWinner = true;
       gamePlay = false;
       break
@@ -92,6 +103,7 @@ $('.square').on('click', function () {
   if (gamePlay === true && clickCount % 2 === 0 && $(`#${squareId}`).find('.content').text() !== player1.symbol && $(`#${squareId}`).find('.content').text() !== player2.symbol) {
     $(`#${squareId}`).find('.content').text(player1.symbol);
     gameStatus[squareId] = player1.symbol;
+    gameStatusId[squareId] = squareId;
     clickCount++;
     currentPlayer = player1;
     nextPlayerTurn(player2);
@@ -102,6 +114,7 @@ $('.square').on('click', function () {
   else if (gamePlay === true && clickCount % 2 !== 0 && $(`#${squareId}`).find('.content').text() !== player1.symbol && $(`#${squareId}`).find('.content').text() !== player2.symbol) {
     $(`#${squareId}`).find('.content').text(player2.symbol);
     gameStatus[squareId] = player2.symbol;
+    gameStatusId[squareId] = squareId;
     clickCount++;
     currentPlayer = player2;
     nextPlayerTurn(player1);
@@ -130,7 +143,6 @@ let resetGame = function () {
 $('#reset').on('click', function () {
   resetGame();
 });
-
 
 /////////////////////////// MISC STYLE FEATURES ////////////////////////////////
 
