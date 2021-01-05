@@ -57,9 +57,14 @@ h3 {
   margin-top: 30px;
   display: inline-grid;
   grid-template-columns: 1fr 1fr 1fr;
-  border: 5px solid #7bfbcc;
+  border: 3px solid #7bfbcc;
   border-radius: 30px;
   background-color: #150bc4;
+  opacity: 1;
+}
+
+.board-invert {
+  border-color: #150bc4;
 }
 
 .square {
@@ -67,6 +72,18 @@ h3 {
   position: relative;
   height: 190px;
   cursor: pointer;
+  transition: background-color 0.5s ease-out;
+  transition-timing-function: cubic-bezier(0, 0, 0.58, 1);
+  border: 2px solid #7bfbcc;
+}
+
+.square-invert {
+  background-color: #7bfbcc;
+  border-color: #150bc4;
+}
+
+.square-invert-alt {
+  background-color: #AF2BAA;
 }
 
 .content {
@@ -82,27 +99,36 @@ h3 {
   -khtml-user-select: none; /* Konqueror HTML */
   -moz-user-select: none; /* Firefox */
   -ms-user-select: none;
-  transition: all 1s ease-out;
+  transition: color 0.5s ease-out;
+  transition-timing-function: cubic-bezier(0, 0, 0.58, 1);
+}
+
+.content-invert {
+  color: #150bc4;
 }
 
 .content-win {
-  font-size: 80px;
+  font-family: 'Space Mono', monospace;
+  font-size: 20px;
+  margin: 0;
+  width: 80%;
+  text-align: center;
 }
 
-.top {
-  border-top: 2px solid #7bfbcc;
+.tr-corner {
+  border-radius: 0 26px 0 0;
 }
 
-.right {
-  border-right: 2px solid #7bfbcc;
+.br-corner {
+  border-radius: 0 0 26px 0;
 }
 
-.bottom {
-  border-bottom: 2px solid #7bfbcc;
+.bl-corner {
+  border-radius: 0 0 0 26px;
 }
 
-.left {
-  border-left: 2px solid #7bfbcc;
+.tl-corner {
+  border-radius: 26px 0 0 0;
 }
 
 /* -------- Scoreboard Styling --------- */
