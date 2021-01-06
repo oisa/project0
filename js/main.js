@@ -157,8 +157,15 @@ const determinePlayerInfo = function () {
     player2.name = p2Name; // update player2 name to user input
   }
 
-  $('#p1-name-sb').text(`${player1.name}`); // NOT WORKING
-  $('#p2-name-sb').text(`${player2.name}`); // NOT WORKING
+  $('#p1-name-sb').text(`${player1.name}`);
+  $('#p2-name-sb').text(`${player2.name}`);
+
+  $(document).on('change', '#p1-symbol-select', function(e) {
+    console.log(this.options[e.target.selectedIndex].text);
+  });
+
+  player1.symbol = $("#p1-symbol-select option:selected" ).text();
+  player2.symbol = $("#p2-symbol-select option:selected" ).text();
 
 }
 

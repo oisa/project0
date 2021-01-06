@@ -93,7 +93,7 @@ h3 {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  font-size: 140px;
+  font-size: 100px;
   font-weight: 700;
   user-select: none; /* supported by Chrome and Opera */
   -webkit-user-select: none; /* Safari */
