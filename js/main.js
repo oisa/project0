@@ -47,7 +47,7 @@ const invertSquares = function () {
 
 };
 
-// Welcome sequence function - add
+// Welcome sequence function - SHOW
 
 const welcomeSec = function () {
 
@@ -59,27 +59,64 @@ const welcomeSec = function () {
 
   $('#0, #2, #8').find('.content').addClass('welcome-xox').text('O');
   $('#1, #6').find('.content').addClass('welcome-xox').text('X');
-  $('#4').addClass('title').find('.content').addClass('title'); // change middle title square to blue
-  $('#4').find('.content').html(`Welcome to <span style="font-style: italic; font-weight: 700;">Tic-Tac-Toe!</span>`);
-  $('#message-board').text(`Giddy up! Pick a name to get started!`); // welcome message at bottom of page
-  $('#p1-name').attr('style', 'display: block;'); // add in player 1 name form
-  $('#p2-name').attr('style', 'display: block;'); // add in player 2 name form
-  $('#start-game').attr('style', 'display: block;'); // add in player 2 name form
+  $('#4').addClass('title').find('.content').addClass('title').html(`Welcome to <span style="font-style: italic; font-weight: 700;">Tic-Tac-Toe!</span>`); // change middle title square to blue
+  $('#p1-name, #p2-name, #start-game').attr('style', 'display: block;'); // show player names forms and start button
+  $('#message-board').text(`Giddy up! Pick a name & symbol to get started!`); // welcome message at bottom of page
 
 };
 
-// Welcome sequence function - remove
+// Determine player names and symbols
+const determinePlayerInfo = function () {
+
+  let p1Name = $('#p1-name').find('input').val();
+  let p2Name = $('#p2-name').find('input').val();
+
+  player1.symbol = $("#p1-symbol-select option:selected").text();
+  player2.symbol = $("#p2-symbol-select option:selected").text();
+
+  if (p1Name === '') {
+    player1.name = 'Player 1';
+  }
+
+  else if (p2Name === '') {
+    player2.name = 'Player 2';
+  }
+
+  else {
+    player1.name = p1Name; // update player1 name to user input
+    player2.name = p2Name; // update player2 name to user input
+  }
+
+  $('#p1-name-sb').text(`${player1.symbol} ${player1.name}`);
+  $('#p2-name-sb').text(`${player2.symbol} ${player2.name}`);
+
+  $(document).on('change', '#p1-symbol-select', function(e) {
+    console.log(this.options[e.target.selectedIndex].text);
+  });
+
+}
+
+// Welcome sequence function - HIDE
 
 const hideWelcomeSec = function () {
 
-  $('#4').removeClass('title').find('.content').removeClass('title'); // remove title styling
-  $(`#p1-name`).attr('style', 'display: none;'); // add in player 1 name form
-  $(`#p2-name`).attr('style', 'display: none;'); // add in player 2 name form
-  $(`#start-game`).attr('style', 'display: none;'); // add in player 2 name form
   $('#0, #2, #8').find('.content').removeClass('welcome-xox').text('O');
   $('#1, #6').find('.content').removeClass('welcome-xox').text('X');
+  $('#4').removeClass('title').find('.content').removeClass('title'); // remove title styling
+  $(`#p1-name, #p2-name, #start-game`).attr('style', 'display: none;'); // hide player names forms and start button
+  $('#reset').attr('style', 'display: block;');
 
 };
+
+// Start game button function
+$('#start-game').on('click', function () {
+
+  determinePlayerInfo();
+  nextPlayerTurn(currentPlayer); // initialises first message to indicate which player starts
+  hideWelcomeSec();
+  welcome = false;
+
+});
 
 // Winner's square styling + message
 
@@ -137,47 +174,6 @@ function welcomeScene() {
 };
 
 welcomeScene();
-
-//Determine player names and symbols
-const determinePlayerInfo = function () {
-
-  let p1Name = $('#p1-name').find('input').val();
-  let p2Name = $('#p2-name').find('input').val();
-
-  if (p1Name === '') {
-    player1.name = 'Player 1';
-  }
-
-  else if (p2Name === '') {
-    player2.name = 'Player 2';
-  }
-
-  else {
-    player1.name = p1Name; // update player1 name to user input
-    player2.name = p2Name; // update player2 name to user input
-  }
-
-  $('#p1-name-sb').text(`${player1.name}`);
-  $('#p2-name-sb').text(`${player2.name}`);
-
-  $(document).on('change', '#p1-symbol-select', function(e) {
-    console.log(this.options[e.target.selectedIndex].text);
-  });
-
-  player1.symbol = $("#p1-symbol-select option:selected" ).text();
-  player2.symbol = $("#p2-symbol-select option:selected" ).text();
-
-}
-
-// Start game button function
-$('#start-game').on('click', function () {
-
-  determinePlayerInfo();
-  nextPlayerTurn(currentPlayer); // initialises first message to indicate which player starts
-  hideWelcomeSec();
-  welcome = false;
-
-});
 
 //////////////////////////////// MESSAGES //////////////////////////////////////
 
