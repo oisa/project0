@@ -57,8 +57,8 @@ const welcomeSec = function () {
     $(`#${i}`).find('.content').addClass('content-win');
   }
 
-  $('#0, #2').find('.content').addClass('welcome-xox').text('O');
-  $('#1, #3, #5').find('.content').addClass('welcome-xox').text('X');
+  $('#0, #2, #8').find('.content').addClass('welcome-xox').text('O');
+  $('#1, #6').find('.content').addClass('welcome-xox').text('X');
   $('#4').addClass('title').find('.content').addClass('title'); // change middle title square to blue
   $('#4').find('.content').html(`Welcome to <span style="font-style: italic; font-weight: 700;">Tic-Tac-Toe!</span>`);
   $('#message-board').text(`Giddy up! Pick a name to get started!`); // welcome message at bottom of page
@@ -76,8 +76,8 @@ const hideWelcomeSec = function () {
   $(`#p1-name`).attr('style', 'display: none;'); // add in player 1 name form
   $(`#p2-name`).attr('style', 'display: none;'); // add in player 2 name form
   $(`#start-game`).attr('style', 'display: none;'); // add in player 2 name form
-  $('#0, #2').find('.content').removeClass('welcome-xox').text('O');
-  $('#1, #3, #5').find('.content').removeClass('welcome-xox').text('X');
+  $('#0, #2, #8').find('.content').removeClass('welcome-xox').text('O');
+  $('#1, #6').find('.content').removeClass('welcome-xox').text('X');
 
 };
 
