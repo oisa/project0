@@ -56,12 +56,17 @@ const welcomeSec = function () {
     $(`#${i}`).find('.content').addClass('content-win');
   }
 
+  $('#0').find('.content').addClass('welcome-xox').text('o');
+  $('#1').find('.content').addClass('welcome-xox').text('x');
+  $('#2').find('.content').addClass('welcome-xox').text('o');
+  $('#3').find('.content').addClass('welcome-xox').text('x');
+  $('#5').find('.content').addClass('welcome-xox').text('x');
   $('#4').addClass('title').find('.content').addClass('title'); // change middle title square to blue
-  $(`#4`).find('.content').html(`Welcome to <span style="font-style: italic; font-weight: 700;">Tic-Tac-Toe!</span>`);
+  $('#4').find('.content').html(`Welcome to <span style="font-style: italic; font-weight: 700;">Tic-Tac-Toe!</span>`);
   $('#message-board').text(`Giddy up! Pick a name to get started!`); // welcome message at bottom of page
-  $(`#p1-name`).attr('style', 'display: block;'); // add in player 1 name form
-  $(`#p2-name`).attr('style', 'display: block;'); // add in player 2 name form
-  $(`#start-game`).attr('style', 'display: block;'); // add in player 2 name form
+  $('#p1-name').attr('style', 'display: block;'); // add in player 1 name form
+  $('#p2-name').attr('style', 'display: block;'); // add in player 2 name form
+  $('#start-game').attr('style', 'display: block;'); // add in player 2 name form
 
 };
 
@@ -73,6 +78,11 @@ const hideWelcomeSec = function () {
   $(`#p1-name`).attr('style', 'display: none;'); // add in player 1 name form
   $(`#p2-name`).attr('style', 'display: none;'); // add in player 2 name form
   $(`#start-game`).attr('style', 'display: none;'); // add in player 2 name form
+  $('#0').find('.content').removeClass('welcome-xox').text('o');
+  $('#1').find('.content').removeClass('welcome-xox').text('x');
+  $('#2').find('.content').removeClass('welcome-xox').text('o');
+  $('#3').find('.content').removeClass('welcome-xox').text('x');
+  $('#5').find('.content').removeClass('welcome-xox').text('x');
 
 };
 
@@ -127,11 +137,20 @@ function welcomeScene() {
 
     welcomeSec();
 
-  }, 1800);
+  }, 1200);
 
 };
 
 welcomeScene();
+
+// Change player names
+
+const changePlayerName = function () {
+
+  $('#p1-name').find('span').html(`asdasd${player1.name}`); // NOT WORKING
+  $('#p2-name').html(`asdasd${player2.name}`); // NOT WORKING
+
+}
 
 // Start game button function
 $('#start-game').on('click', function () {
@@ -139,13 +158,10 @@ $('#start-game').on('click', function () {
   player1.name = $('#p1-name').find('input').val(); // update player1 name to user input
   player2.name = $('#p2-name').find('input').val(); // update player2 name to user input
 
-  $('#p1-name').text(`${player1.name}: `);
-  $('#p2-name').text(`${player2.name}: `);
-
-  welcome = false;
+  changePlayerName();
   nextPlayerTurn(currentPlayer); // initialises first message to indicate which player starts
   hideWelcomeSec();
-  resetGame();
+  welcome = false;
 
 });
 
@@ -161,7 +177,7 @@ const drawMessage = () => $('#message-board').text(`No points this round 😭`);
 const winningMessages = ['You bloody beauty', 'Whoopee', 'Huzzah', 'w00t', 'Gnarly dude', 'Gee-whizz', 'Goshwow', 'Wicked', 'Ooft', 'Cowabunga'];
 
 const winningMsg = function () {
-  let randomIndex = Math.floor(Math.random() * winningMessages.length);
+  let randomIndex = Math.floor(Math.random() * 10);
   return winningMessages[randomIndex];
 }
 
@@ -185,6 +201,8 @@ const gameValidation = function () {
     let c = [gameStatus[winSequence[2]], gameStatusId[winSequence[2]]];
 
     // console.log(`${a[0]}, ${b[0]}, ${c[0]}\nBREAK`);
+    //
+    // console.log(gameStatus);
 
     if (a[0] === '' || b[0] === '' || c[0] === '') {
       continue;
@@ -228,6 +246,8 @@ $('.square').on('click', function () {
   let squareId = Number(this.id);
 
 // If the click is even, add an 'x' - Player 1
+  if (welcome === true) {};
+
   if (gamePlay === true && clickCount % 2 === 0 && $(`#${squareId}`).find('.content').text() !== player1.symbol && $(`#${squareId}`).find('.content').text() !== player2.symbol) {
 
     $(`#${squareId}`).find('.content').text(player1.symbol);
@@ -251,7 +271,7 @@ $('.square').on('click', function () {
     gameValidation();
   }
 
-  else if (gamePlay === false && welcome !== true) {
+  else if (gamePlay === false && welcome === false) {
     resetGame();
   }
 

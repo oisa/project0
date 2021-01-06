@@ -213,6 +213,12 @@ h3 > span {
   background-color: #150bc4;
 }
 
+.welcome-xox {
+  font-family: 'Quicksand', sans-serif;
+  font-size: 190px;
+  margin-top: -13px;
+}
+
 .choose-player-name, #start-game {
   display: none;
   font-size: 16px;
@@ -249,7 +255,8 @@ h3 > span {
   border: #7bfbcc solid 1px;
   background-color: #150bc4;
   border-radius: 20px;
-  padding: 5px 0px;
+  padding: 8px 0px;
+  cursor: pointer;
 }
 
 #start-game:hover {
