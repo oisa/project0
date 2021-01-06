@@ -4,13 +4,13 @@
 
 let player1 = {
   name: 'Player 1',
-  symbol: 'x',
+  symbol: 'X',
   score: 0
 }
 
 let player2 = {
   name: 'Player 2',
-  symbol: 'o',
+  symbol: 'O',
   score: 0
 }
 
@@ -52,15 +52,13 @@ const invertSquares = function () {
 const welcomeSec = function () {
 
   invertSquares();
+
   for (let i = 0; i < 9; i++) {
     $(`#${i}`).find('.content').addClass('content-win');
   }
 
-  $('#0').find('.content').addClass('welcome-xox').text('o');
-  $('#1').find('.content').addClass('welcome-xox').text('x');
-  $('#2').find('.content').addClass('welcome-xox').text('o');
-  $('#3').find('.content').addClass('welcome-xox').text('x');
-  $('#5').find('.content').addClass('welcome-xox').text('x');
+  $('#0, #2').find('.content').addClass('welcome-xox').text('O');
+  $('#1, #3, #5').find('.content').addClass('welcome-xox').text('X');
   $('#4').addClass('title').find('.content').addClass('title'); // change middle title square to blue
   $('#4').find('.content').html(`Welcome to <span style="font-style: italic; font-weight: 700;">Tic-Tac-Toe!</span>`);
   $('#message-board').text(`Giddy up! Pick a name to get started!`); // welcome message at bottom of page
@@ -78,11 +76,8 @@ const hideWelcomeSec = function () {
   $(`#p1-name`).attr('style', 'display: none;'); // add in player 1 name form
   $(`#p2-name`).attr('style', 'display: none;'); // add in player 2 name form
   $(`#start-game`).attr('style', 'display: none;'); // add in player 2 name form
-  $('#0').find('.content').removeClass('welcome-xox').text('o');
-  $('#1').find('.content').removeClass('welcome-xox').text('x');
-  $('#2').find('.content').removeClass('welcome-xox').text('o');
-  $('#3').find('.content').removeClass('welcome-xox').text('x');
-  $('#5').find('.content').removeClass('welcome-xox').text('x');
+  $('#0, #2').find('.content').removeClass('welcome-xox').text('O');
+  $('#1, #3, #5').find('.content').removeClass('welcome-xox').text('X');
 
 };
 
@@ -137,28 +132,40 @@ function welcomeScene() {
 
     welcomeSec();
 
-  }, 1200);
+  }, 1100);
 
 };
 
 welcomeScene();
 
-// Change player names
+//Determine player names and symbols
+const determinePlayerInfo = function () {
 
-const changePlayerName = function () {
+  let p1Name = $('#p1-name').find('input').val();
+  let p2Name = $('#p2-name').find('input').val();
 
-  $('#p1-name').find('span').html(`asdasd${player1.name}`); // NOT WORKING
-  $('#p2-name').html(`asdasd${player2.name}`); // NOT WORKING
+  if (p1Name === '') {
+    player1.name = 'Player 1';
+  }
+
+  else if (p2Name === '') {
+    player2.name = 'Player 2';
+  }
+
+  else {
+    player1.name = p1Name; // update player1 name to user input
+    player2.name = p2Name; // update player2 name to user input
+  }
+
+  $('#p1-name-sb').text(`${player1.name}`); // NOT WORKING
+  $('#p2-name-sb').text(`${player2.name}`); // NOT WORKING
 
 }
 
 // Start game button function
 $('#start-game').on('click', function () {
 
-  player1.name = $('#p1-name').find('input').val(); // update player1 name to user input
-  player2.name = $('#p2-name').find('input').val(); // update player2 name to user input
-
-  changePlayerName();
+  determinePlayerInfo();
   nextPlayerTurn(currentPlayer); // initialises first message to indicate which player starts
   hideWelcomeSec();
   welcome = false;
