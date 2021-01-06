@@ -217,11 +217,12 @@ h3 > span {
   font-weight: 700;
 }
 
-.choose-player-name, #start-game {
+.choose-player-info, #start-game {
   display: none;
   font-size: 16px;
   margin: 0;
   width: 80%;
+  margin-bottom: 5px;
   text-align: center;
   position: absolute;
   top: 50%;
@@ -231,20 +232,45 @@ h3 > span {
   color: #150bc4;
 }
 
-.choose-player-name > input {
+.choose-player-info > p {
+  font-size: 14px;
+  margin: 0;
+  margin-bottom: 5px;
+}
+
+.choose-player-info > input {
   margin: 0;
   width: 80%;
-  margin-top: 10px;
+  margin-bottom: 15px;
   padding: 5px;
   text-align: center;
   outline: none;
   border: none;
   border-bottom: #150bc4 solid 1px;
-  font-size: 20px;
+  font-size: 16px;
   font-family: 'Space Mono', monospace;
   -webkit-font-smoothing: antialiased;
-  color: #150bc4;
+  color: #AF2BAA;
   background-color: rgba(123, 251, 204, 0);
+}
+
+.symbol-select {
+  margin: 0 auto;
+  width: 32%;
+  display: block;
+  font-size: 28px;
+  font-weight: 400;
+  font-family: 'Space Mono', monospace;
+  text-align: center;
+  -webkit-font-smoothing: antialiased;
+  color: #150bc4;
+  outline: none;
+  border: none;
+  background-color: rgba(123, 251, 204, 0);
+}
+
+select {
+  text-align: center;
 }
 
 #start-game {

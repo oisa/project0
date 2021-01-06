@@ -4,13 +4,14 @@
     <meta charset="utf-8">
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
     <link rel="icon" type="image/png" href="favicon.png">
     <title>Let's play Tic-Tac-Toe!</title>
   </head>
   <body>
 
     <header>
-      <h1 class="animate__animated animate__fadeInDown">Wanna vs me in a game of <span style="font-style: italic;">Tic-Tac-Toe?</span>  😄</h1>
+      <h1 class="animate__animated animate__fadeInDown">Wanna vs me in a game of <span style="font-style: italic;">Tic-Tac-Type?</span>  😄</h1>
     </header>
 
       <div class="game">
@@ -21,9 +22,41 @@
           <div id="3" class="square"><div class="content"></div></div>
           <div id="4" class="square"><div class="content"></div></div>
           <div id="5" class="square"><div class="content"></div></div>
-          <div id="6" class="square bl-corner"><div class="content"></div><div id="p1-name" class="choose-player-name">Player 1 Name:<input></input></div></div>
+          <div id="6" class="square bl-corner">
+            <div class="content"></div>
+            <div id="p1-name" class="choose-player-info">
+              <p>Player 1 name:</p>
+              <input></input>
+              <p>What's yo flava?</p>
+              <select id="p1-symbol-select" class="symbol-select">
+                <option value="❌">❌</option>
+                <option value="😎">😎</option>
+                <option value="🐸">🐸</option>
+                <option value="🐶">🐶</option>
+                <option value="🐳">🐳</option>
+                <option value="🐝">🐝</option>
+                <option value="👀">👀</option>
+              </select>
+            </div>
+          </div>
           <div id="7" class="square"><div class="content"></div><div id="start-game">Go for gold!</div></div>
-          <div id="8" class="square br-corner"><div class="content"></div><div id="p2-name" class="choose-player-name">Player 2 Name:<input></input></div></div>
+          <div id="8" class="square br-corner">
+            <div class="content"></div>
+            <div id="p2-name" class="choose-player-info">
+              <p>Player 2 name:</p>
+              <input></input>
+              <p>What's yo flava?</p>
+              <select id="p2-symbol-select" class="symbol-select">
+                <option value="⭕️">⭕️</option>
+                <option value="🤠">🤠</option>
+                <option value="🐢">🐢</option>
+                <option value="😸">😸</option>
+                <option value="🐬">🐬</option>
+                <option value="🦕">🦕</option>
+                <option value="👽">👽</option>
+              </select>
+            </div>
+          </div>
         </div>
 
       <div class="scoreboard animate__animated animate__fadeInUp">
@@ -51,6 +84,7 @@
 
     </div>
 
+    <script src="https://kit.fontawesome.com/493b2742e3.js" crossorigin="anonymous"></script>
     <script type="text/javascript" src="js/jquery.js"></script>
     <script src="https://unpkg.com/tilt.js@1.2.1/dest/tilt.jquery.min.js"></script>
     <script src="js/main.js" charset="utf-8"></script>

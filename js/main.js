@@ -100,7 +100,7 @@ const invertSquaresDraw = function () {
   for (let i = 0; i < 9; i++) {
     setTimeout(function() {
       $(`#${i}`).addClass('square-invert-alt');
-      $(`#4`).find('.content').addClass('content-win').text(`Dangit. It's a draw. Click to play again. 🧐`);
+      $(`#4`).find('.content').addClass('content-win').text(`Dangit! It's a draw. Click to play again. 🧐`);
     }, 25 * i);
   }
 };
@@ -257,7 +257,7 @@ $('.square').on('click', function () {
 
   if (gamePlay === true && clickCount % 2 === 0 && $(`#${squareId}`).find('.content').text() !== player1.symbol && $(`#${squareId}`).find('.content').text() !== player2.symbol) {
 
-    $(`#${squareId}`).find('.content').text(player1.symbol);
+    $(`#${squareId}`).find('.content').html(player1.symbol);
     gameStatus[squareId] = player1.symbol;
     gameStatusId[squareId] = squareId;
     clickCount++;
@@ -269,7 +269,7 @@ $('.square').on('click', function () {
 // If the click is even, add an 'o' - Player 2
   else if (gamePlay === true && clickCount % 2 !== 0 && $(`#${squareId}`).find('.content').text() !== player1.symbol && $(`#${squareId}`).find('.content').text() !== player2.symbol) {
 
-    $(`#${squareId}`).find('.content').text(player2.symbol);
+    $(`#${squareId}`).find('.content').html(player2.symbol);
     gameStatus[squareId] = player2.symbol;
     gameStatusId[squareId] = squareId;
     clickCount++;
