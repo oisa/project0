@@ -50,6 +50,41 @@ let clickCount = 0;
 
 ///////////////////////////////// FUNCTIONS ////////////////////////////////////
 
+//////////////////////// RETRIEVE FROM LOCALSTORAGE ////////////////////////////
+
+// Retrieve the object from storage alongside function to update existing object
+let retrievedObjectPlayer1 = JSON.parse(localStorage.getItem('player1'));
+let retrievedObjectPlayer2 = JSON.parse(localStorage.getItem('player2'));
+
+const updateScoresFromLocalStorage = function () {
+
+  if (retrievedObjectPlayer1 !== null) {
+
+    if(retrievedObjectPlayer1.score >= player1.score || retrievedObjectPlayer2.score >= player2.score || player1.symbol !== retrievedObjectPlayer1.symbol || player2.symbol !== retrievedObjectPlayer1.symbol) {
+
+      player1 = retrievedObjectPlayer1;
+      player2 = retrievedObjectPlayer2;
+
+      $('#p1-score').text(player1.score); // Update player scores on scoreboard
+      $('#p2-score').text(player2.score);
+
+      $('#p1-name-sb').text(`${player1.name}`); // Update player names on scoreboard
+      $('#p2-name-sb').text(`${player2.name}`);
+
+      $('#p1-symbol-sb').text(`${player1.symbol}`); // Update player symbols on start if previously set
+      $('#p2-symbol-sb').text(`${player2.symbol}`);
+
+    }
+
+  }
+
+};
+
+updateScoresFromLocalStorage(); // run this function on page load
+
+
+//////////////////////// WELCOME SEQUENCE FUNCTIONS ////////////////////////////
+
 // Invert squares function
 const invertSquares = function () {
 
@@ -86,11 +121,13 @@ const hideWelcomeSec = function () {
 
   $('#0, #8').find('.content').removeClass('welcome-xox').text('O');
   $('#2, #6').find('.content').removeClass('welcome-xox').text('X');
-  $('#4').removeClass('square-title').find('.content').removeClass('content-title'); // remove title styling
-  $(`#p1-info, #p2-info, #start-game, #game-select-section`).attr('style', 'display: none;'); // hide player names forms and start button
+  $('#4').removeClass('square-title').find('.content').removeClass('content-title'); // Remove title styling
+  $(`#p1-info, #p2-info, #start-game, #game-select-section`).attr('style', 'display: none;'); // Hide player names forms and start button
   $('#reset').attr('style', 'display: block;');
 
 };
+
+////////////////////////// GAME TYPE DETERMINATION /////////////////////////////
 
 // Game type selection function with computer settings updated if chosen
 const restoreSettingsComputer = function () {
@@ -115,7 +152,7 @@ const restoreSettingsPlayer = function () {
   $('#p2-info').find('select').attr('style', 'display: block;');
 };
 
-// Welcome game selection option
+// Change game type if selected via dropdown on welcome screen
 $('#game-select-welcome').change(function() {
 
   gameType = $('#game-select-welcome').find('option:selected').data('value');
@@ -131,7 +168,7 @@ $('#game-select-welcome').change(function() {
 
 });
 
-// Footer game selection option
+// Change game type if selected via dropdown in the footer
 $('#game-select-footer').change(function() {
 
   gameType = $('#game-select-footer').find('option:selected').data('value');
@@ -147,7 +184,8 @@ $('#game-select-footer').change(function() {
 
 });
 
-// Determine player names and symbols
+
+////////////////////// DETERMINE NAMES AND SYMBOLS /////////////////////////////
 
 // Player 1
 $('#p1-symbol-select').change(function() {
@@ -183,14 +221,11 @@ $('#p2-info').find('input').on('keyup', function () {
 
 });
 
-
-// Upon clicking the start button
+// Updating object for Player 1 name & symbol and condition if no name is entered
 const updatePlayerInfo = function () {
 
   let p1Name = $('#p1-info').find('input').val();
   let p2Name = $('#p2-info').find('input').val();
-
-  player1.symbol = $('#p1-symbol-select option:selected').text();
 
   if (p1Name === '') {
     player1.name = 'Player 1';
@@ -302,6 +337,7 @@ function welcomeScene() {
 
 welcomeScene();
 
+
 ///////////////////////////// GAME MESSAGES ////////////////////////////////////
 
 // Guidance message during game
@@ -318,6 +354,7 @@ const winMessage = function () {
   winningSq(winnerSq1, winnerSq2, winnerSq3);
   invertSquares();
 };
+
 
 ///////////////////////////// GAME VALIDATION //////////////////////////////////
 
@@ -367,9 +404,15 @@ const gameValidation = function () {
     return;
   }
 
+// Update player scores on scoreboard
   $('#p1-score').text(player1.score);
   $('#p2-score').text(player2.score);
+
+// Update the object in Local Storage
+  localStorage.setItem('player1', JSON.stringify(player1));
+  localStorage.setItem('player2', JSON.stringify(player2));
 };
+
 
 //////////////////////// FUNCTION IF SQUARE CLICKED ////////////////////////////
 
@@ -432,6 +475,7 @@ $('.square').on('click', function () {
 
 });
 
+
 /////////////////////////////// RESET GAME /////////////////////////////////////
 
 // General reset game function
@@ -465,11 +509,9 @@ $('.square').on('click', function () {
     }, 450);
   });
 
+
 /////////////////////////// MISC STYLE FEATURES ////////////////////////////////
 
 // Board tilt function
 const tilt = $('.js-tilt').tilt()
 tilt.on('change', function(e, transforms){});
-
-
-/////////////////////////// STORE TO LOCALSTORAGE //////////////////////////////
