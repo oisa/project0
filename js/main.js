@@ -85,6 +85,25 @@ updateScoresFromLocalStorage(); // run this function on page load
 
 //////////////////////// WELCOME SEQUENCE FUNCTIONS ////////////////////////////
 
+// Landing, welcome screen with name allocation
+$(`#4`).find('.content').addClass('content-title').html(`<p>Loading...</p>`);
+$('#message-board').text(`Thinking... Pondering...`);
+
+let welcome = true;
+
+// Set delay for welcome sequence to occur for deliberate UX purpose
+function welcomeScene() {
+
+  setTimeout(function(){
+
+    welcomeSec();
+
+  }, 1100);
+
+};
+
+welcomeScene();
+
 // Invert squares function
 const invertSquares = function () {
 
@@ -139,10 +158,7 @@ const restoreSettingsComputer = function () {
   $('#p2-info').find('input').attr('style', 'display: none;');
   $('#p2-symbol-title').addClass('symbol-title').text(`👾`);
   $('#p2-info').find('select').attr('style', 'display: none;');
-  player1.score = 0; // Update player scores in object to zero
-  player2.score = 0;
-  $('#p1-score').text(player1.score); // Update player scores on scoreboard
-  $('#p2-score').text(player2.score);
+  resetScores();
 };
 
 const restoreSettingsPlayer = function () {
@@ -154,10 +170,7 @@ const restoreSettingsPlayer = function () {
   $('#p2-info').find('input').attr('style', 'display: inline-block;').val('');
   $('#p2-symbol-title').removeClass('symbol-title').text(`What's yo flava?`);
   $('#p2-info').find('select').attr('style', 'display: block;');
-  player1.score = 0; // Update player scores in object to zero
-  player2.score = 0;
-  $('#p1-score').text(player1.score); // Update player scores on scoreboard
-  $('#p2-score').text(player2.score);
+  resetScores();
 };
 
 // Change game type if selected via dropdown on welcome screen
@@ -296,7 +309,7 @@ const invertSquaresDraw = function () {
 const randomise = function (array) {
   let randomIndex = Math.floor(Math.random() * array.length);
   return array[randomIndex];
-}
+};
 
 // Determine available options after selection
 const updateAvailableOptions = function () {
@@ -308,6 +321,23 @@ const updateAvailableOptions = function () {
       availableOptions.push(gameStatus[i][1]);
     }
   };
+
+};
+
+// Reset scores function
+const resetScores = function () {
+
+// Update player objects with reset score values
+  player1.score = 0; // Update player scores in object to zero
+  player2.score = 0;
+
+// Update scoreboard with reset values
+  $('#p1-score').text(player1.score); // Update player scores on scoreboard
+  $('#p2-score').text(player2.score);
+
+// Update the object in Local Storage
+  localStorage.setItem('player1', JSON.stringify(player1));
+  localStorage.setItem('player2', JSON.stringify(player2));
 
 };
 
@@ -323,27 +353,6 @@ const resetSquares = function () {
   }
 
 };
-
-
-//////////////////////////// WELCOME SEQUENCE //////////////////////////////////
-
-// Landing, welcome screen with name allocation
-$(`#4`).find('.content').addClass('content-title').html(`<p>Loading...</p>`);
-$('#message-board').text(`Thinking... Pondering...`);
-
-let welcome = true;
-
-function welcomeScene() {
-
-  setTimeout(function(){
-
-    welcomeSec();
-
-  }, 1100);
-
-};
-
-welcomeScene();
 
 
 ///////////////////////////// GAME MESSAGES ////////////////////////////////////
@@ -487,35 +496,38 @@ $('.square').on('click', function () {
 /////////////////////////////// RESET GAME /////////////////////////////////////
 
 // General reset game function
-  let resetGame = function () {
-    gamePlay = true;
-    $(`.square`).find('.content').text('');
-    gameStatusSingleArray = ['', '', '', '', '', '', '', '', ''];
-    gameStatus = [
-      ['', 0],
-      ['', 1],
-      ['', 2],
-      ['', 3],
-      ['', 4],
-      ['', 5],
-      ['', 6],
-      ['', 7],
-      ['', 8]
-    ];
-    currentPlayer = player1;
-    nextPlayerTurn(player1);
-    clickCount = 0;
-    resetSquares();
-  };
+let resetGame = function () {
+  gamePlay = true;
+  $(`.square`).find('.content').text('');
+  gameStatusSingleArray = ['', '', '', '', '', '', '', '', ''];
+  gameStatus = [
+    ['', 0],
+    ['', 1],
+    ['', 2],
+    ['', 3],
+    ['', 4],
+    ['', 5],
+    ['', 6],
+    ['', 7],
+    ['', 8]
+  ];
+  currentPlayer = player1;
+  nextPlayerTurn(player1);
+  clickCount = 0;
+  resetSquares();
+};
 
 // Reset button click
-  $('#reset').on('click', function () {
-    invertSquares();
+$('#reset').on('click', function () {
 
-    setTimeout(function(){
-      resetGame();
-    }, 450);
-  });
+  invertSquares();
+
+  setTimeout(function(){
+    resetGame();
+    resetScores();
+  }, 450);
+
+});
 
 
 /////////////////////////// MISC STYLE FEATURES ////////////////////////////////
