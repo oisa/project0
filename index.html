@@ -11,17 +11,26 @@
   <body>
 
     <header>
-      <h1 class="animate__animated animate__fadeInDown">Fancy a game of <span style="font-style: italic;">Tic-Tac-Toe?</span>  🙃</h1>
+      <h1 class="animate__animated animate__fadeInDown"><a href="index.html">Fancy a game of <span>Tic-Tac-Toe?</span> 🙃</a></h1>
     </header>
 
       <div class="game">
         <div class="board js-tilt animate__animated animate__fadeIn">
           <div id="0" class="square tl-corner"><div class="content"></div></div>
-          <div id="1" class="square"><div class="content"></div></div>
+          <div id="1" class="square">
+            <div class="content"></div>
+            <div id="game-select-section">
+              <p>Game mode:</p>
+              <select id="game-select-welcome">
+                <option value="pvp" data-value="pvp">Player vs Player</option>
+                <option value="pvc" data-value="pvc">Player vs c0mput3r</option>
+              </select>
+            </div>
+          </div>
           <div id="2" class="square tr-corner"><div class="content"></div></div>
           <div id="3" class="square">
             <div class="content"></div>
-            <div id="p1-name" class="choose-player-info">
+            <div id="p1-info" class="choose-player-info">
               <p>Player 1 name:</p>
               <input></input>
               <p>What's yo flava?</p>
@@ -29,17 +38,17 @@
                 <option value="❌">❌</option>
                 <option value="😎">😎</option>
                 <option value="🐸">🐸</option>
-                <option value="🐶">🐶</option>
-                <option value="🐳">🐳</option>
+                <option value="🦋">🦋</option>
                 <option value="🐝">🐝</option>
-                <option value="👀">👀</option>
+                <option value="🐳">🐳</option>
+                <option value="🐶">🐶</option>
               </select>
             </div>
           </div>
           <div id="4" class="square"><div class="content"></div></div>
           <div id="5" class="square">
             <div class="content"></div>
-            <div id="p2-name" class="choose-player-info">
+            <div id="p2-info" class="choose-player-info">
               <p id="p2-name-title">Player 2 name:</p>
               <input></input>
               <p id="p2-symbol-title">What's yo flava?</p>
@@ -49,7 +58,7 @@
                 <option value="🐢">🐢</option>
                 <option value="😸">😸</option>
                 <option value="🐬">🐬</option>
-                <option value="🦕">🦕</option>
+                <option value="🐒">🐒</option>
                 <option value="👽">👽</option>
               </select>
             </div>
@@ -59,8 +68,8 @@
           </div>
           <div id="7" class="square">
             <div class="content"></div>
-            <div id="start-game">Go for gold!</div>
-          </div>
+              <div id="start-game">Go for gold!</div>
+            </div>
           <div id="8" class="square br-corner">
             <div class="content"></div>
 
@@ -78,10 +87,10 @@
           <div class="score-column"><p id="message-board"></p></div>
 
           <div class="score-column">
-            <h3>Mode</h3>
-            <select class="score-select">
-              <option data-value="pvp">Player vs Player</option>
-              <option data-value="pvc">Player vs Computer</option>
+            <p>Game mode:</p>
+            <select id="game-select-footer">
+              <option value="pvp" data-value="pvp">Player vs Player</option>
+              <option value="pvc" data-value="pvc">Player vs c0mput3r</option>
             </select>
           </div>
         </div>

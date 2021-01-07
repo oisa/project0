@@ -72,58 +72,82 @@ const welcomeSec = function () {
     $(`#${i}`).find('.content').addClass('content-win');
   }
 
-  $('#0, #2, #8').find('.content').addClass('welcome-xox').text('O');
-  $('#1, #6').find('.content').addClass('welcome-xox').text('X');
+  $('#0, #8').find('.content').addClass('welcome-xox').text('O');
+  $('#2, #6').find('.content').addClass('welcome-xox').text('X');
   $('#4').addClass('square-title').find('.content').addClass('content-title').html(`Welcome to <span style="font-style: italic; font-weight: 700;">Tic-Tac-Toe!</span>`); // change middle title square to blue
-  $('#p1-name, #p2-name, #start-game').attr('style', 'display: block;'); // show player names forms and start button
-  $('#message-board').text(`Giddy up! Pick a name & symbol to get started!`); // welcome message at bottom of page
+  $('#p1-info, #p2-info, #start-game').attr('style', 'display: block;'); // show player names forms and start button
+  $('#p1-info, #p2-info, #start-game, #game-select-section').attr('style', 'display: block;'); // show player names forms and start button
+  $('#message-board').text(`Pick a name & symbol to get started!`); // welcome message at bottom of page
 
 };
 
 // Welcome sequence function - HIDE
 const hideWelcomeSec = function () {
 
-  $('#0, #2, #8').find('.content').removeClass('welcome-xox').text('O');
-  $('#1, #6').find('.content').removeClass('welcome-xox').text('X');
+  $('#0, #8').find('.content').removeClass('welcome-xox').text('O');
+  $('#2, #6').find('.content').removeClass('welcome-xox').text('X');
   $('#4').removeClass('square-title').find('.content').removeClass('content-title'); // remove title styling
-  $(`#p1-name, #p2-name, #start-game`).attr('style', 'display: none;'); // hide player names forms and start button
+  $(`#p1-info, #p2-info, #start-game, #game-select-section`).attr('style', 'display: none;'); // hide player names forms and start button
   $('#reset').attr('style', 'display: block;');
 
 };
 
 // Game type selection function with computer settings updated if chosen
-$('.score-select').change(function() {
+const restoreSettingsComputer = function () {
+  player2.name = 'c0mput3r';
+  player2.symbol = '👾';
+  $('#p2-name-sb').text(`${player2.name}`);
+  $('#p2-symbol-sb').text(`${player2.symbol}`);
+  $('#p2-name-title').text(`You're versing the c0mput3r`);
+  $('#p2-info').find('input').attr('style', 'display: none;');
+  $('#p2-symbol-title').addClass('symbol-title').text(`👾`);
+  $('#p2-info').find('select').attr('style', 'display: none;');
+};
 
-  gameType = $('.score-select').find('option:selected').data('value');
+const restoreSettingsPlayer = function () {
+  player2.name = 'Player 2';
+  player2.symbol = $('#p2-symbol-select option:selected').text();
+  $('#p2-name-sb').text(`${player2.name}`);
+  $('#p2-symbol-sb').text(`${player2.symbol}`);
+  $('#p2-name-title').text(`Player 2 name:`);
+  $('#p2-info').find('input').attr('style', 'display: inline-block;').val('');
+  $('#p2-symbol-title').removeClass('symbol-title').text(`What's yo flava?`);
+  $('#p2-info').find('select').attr('style', 'display: block;');
+};
+
+// Welcome game selection option
+$('#game-select-welcome').change(function() {
+
+  gameType = $('#game-select-welcome').find('option:selected').data('value');
+  $('#game-select-footer').val(`${gameType}`);
 
   if (gameType === 'pvc') {
-    player2.name = 'c0put3r';
-    player2.symbol = '👾';
-    $('#p2-name-sb').text(`${player2.name}`);
-    $('#p2-symbol-sb').text(`${player2.symbol}`);
-    $('#p2-name-title').text(`You're versing the c0put3r`);
-    $('#p2-name').find('input').attr('style', 'display: none;');
-    $('#p2-symbol-title').addClass('symbol-title').text(`👾`);
-    $('#p2-name').find('select').attr('style', 'display: none;');
+    restoreSettingsComputer();
   }
 
   else if (gameType === 'pvp') {
-    player2.name = 'Player 2';
-    player2.symbol = '⭕️';
-    $('#p2-name-sb').text(`${player2.name}`);
-    $('#p2-symbol-sb').text(`${player2.symbol}`);
-    $('#p2-name-title').text(`Player 2 name:`);
-    $('#p2-name').find('input').val('c0put3r');
-    $('#p2-name').find('input').attr('style', 'display: block;').val('');
-    $('#p2-symbol-title').removeClass('symbol-title').text(`What's yo flava?`);
-    $('#p2-name').find('select').attr('style', 'display: block;');
+    restoreSettingsPlayer();
+  };
+
+});
+
+// Footer game selection option
+$('#game-select-footer').change(function() {
+
+  gameType = $('#game-select-footer').find('option:selected').data('value');
+  $('#game-select-welcome').val(`${gameType}`);
+
+  if (gameType === 'pvc') {
+    restoreSettingsComputer();
+  }
+
+  else if (gameType === 'pvp') {
+    restoreSettingsPlayer();
   };
 
 });
 
 // Determine player names and symbols
-
-// Upon changing the options dynamically as user inputs each
 
 // Player 1
 $('#p1-symbol-select').change(function() {
@@ -133,9 +157,9 @@ $('#p1-symbol-select').change(function() {
 
 });
 
-$('#p1-name').find('input').on('keyup', function () {
+$('#p1-info').find('input').on('keyup', function () {
 
-  player1.name = $('#p1-name').find('input').val();
+  player1.name = $('#p1-info').find('input').val();
   $('#p1-name-sb').text(`${player1.name}`);
 
 });
@@ -150,10 +174,10 @@ $('#p2-symbol-select').change(function() {
 
 });
 
-$('#p2-name').find('input').on('keyup', function () {
+$('#p2-info').find('input').on('keyup', function () {
 
   if (gameType === 'pvp') { // must be pvp to action anything
-    player2.name = $('#p2-name').find('input').val();
+    player2.name = $('#p2-info').find('input').val();
     $('#p2-name-sb').text(`${player2.name}`);
   };
 
@@ -163,8 +187,8 @@ $('#p2-name').find('input').on('keyup', function () {
 // Upon clicking the start button
 const updatePlayerInfo = function () {
 
-  let p1Name = $('#p1-name').find('input').val();
-  let p2Name = $('#p2-name').find('input').val();
+  let p1Name = $('#p1-info').find('input').val();
+  let p2Name = $('#p2-info').find('input').val();
 
   player1.symbol = $('#p1-symbol-select option:selected').text();
 
@@ -207,9 +231,9 @@ let winnerSq3;
 
 const winningSq = function (first, second, third) {
 
-  $(`#${first}`).find('.content').addClass('content-invert content-win').html(`<span style="font-style: italic;">${randomise(winningMessages)}!</span>`);
-  $(`#${second}`).find('.content').addClass('content-invert content-win').text(`${currentPlayer.name}, you won! 🥳`);
-  $(`#${third}`).find('.content').addClass('content-invert content-win').text(`A point 4 u. Pls reset by clicking the board.`);
+  $(`#${first}`).find('.content').addClass('content-invert content-win').html(`<p class="win-symbol-place">${currentPlayer.symbol}</p><span style="font-style: italic;">${randomise(winningMessages)}!</span>`);
+  $(`#${second}`).find('.content').addClass('content-invert content-win').html(`<p class="win-symbol-place">${currentPlayer.symbol}</p>${currentPlayer.name}, you won! 🥳`);
+  $(`#${third}`).find('.content').addClass('content-invert content-win').html(`<p class="win-symbol-place">${currentPlayer.symbol}</p>1x point for you, ${currentPlayer.name}<div id="new-game-button">Play again!</div>`);
 
 };
 
@@ -219,7 +243,7 @@ const invertSquaresDraw = function () {
   for (let i = 0; i < 9; i++) {
     setTimeout(function() {
       $(`#${i}`).addClass('square-invert-alt');
-      $(`#4`).find('.content').addClass('content-win').text(`Dangit! It's a draw. Click to play again. 🧐`);
+      $(`#4`).find('.content').addClass('content-win').html(`Dangit! 🧐 <div id="new-game-button">Play again!</div>`);
     }, 25 * i);
   }
 
@@ -246,6 +270,7 @@ const updateAvailableOptions = function () {
 
 // Reset squares function
 const resetSquares = function () {
+
   for (let i = 0; i < 9; i++) {
     setTimeout(function() {
       $(`#${i}`).removeClass('square-title square-invert square-invert-alt');
@@ -253,13 +278,14 @@ const resetSquares = function () {
       $('.board').removeClass('board-invert');
     }, 25 * i);
   }
+
 };
 
 
 //////////////////////////// WELCOME SEQUENCE //////////////////////////////////
 
 // Landing, welcome screen with name allocation
-$(`#4`).find('.content').addClass('content-title').text(`Loading...`);
+$(`#4`).find('.content').addClass('content-title').html(`<p>Loading...</p>`);
 $('#message-board').text(`Thinking... Pondering...`);
 
 let welcome = true;
@@ -445,4 +471,5 @@ $('.square').on('click', function () {
 const tilt = $('.js-tilt').tilt()
 tilt.on('change', function(e, transforms){});
 
-// Entry sequence (tiles flicker to green then back to blue)
+
+/////////////////////////// STORE TO LOCALSTORAGE //////////////////////////////
