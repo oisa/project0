@@ -53,10 +53,11 @@ p {
 
 a {
   text-decoration: none;
+  color: #7bfbcc;
 }
 
 a:visited {
-  color: inherit;
+  color: #7bfbcc;
 }
 
 ::selection {
