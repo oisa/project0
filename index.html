@@ -11,7 +11,7 @@
   <body>
 
     <header>
-      <h1 class="animate__animated animate__fadeInDown">Fancy a game of <span style="font-style: italic;">Tic-Tac-Toe?</span>  😄</h1>
+      <h1 class="animate__animated animate__fadeInDown">Fancy a game of <span style="font-style: italic;">Tic-Tac-Toe?</span>  🙃</h1>
     </header>
 
       <div class="game">
@@ -40,9 +40,9 @@
           <div id="5" class="square">
             <div class="content"></div>
             <div id="p2-name" class="choose-player-info">
-              <p>Player 2 name:</p>
+              <p id="p2-name-title">Player 2 name:</p>
               <input></input>
-              <p>What's yo flava?</p>
+              <p id="p2-symbol-title">What's yo flava?</p>
               <select id="p2-symbol-select" class="symbol-select">
                 <option value="⭕️">⭕️</option>
                 <option value="🤠">🤠</option>
@@ -71,8 +71,8 @@
         <h2>Scoreboard</h2>
         <div class="score-container">
           <div class="score-column">
-            <h3 id="p1-title"><span id="p1-name-sb">Player 1</span>: <span id="p1-score">0</span></h3>
-            <h3 id="p2-title"><span id="p2-name-sb">Player 2</span>: <span id="p2-score">0</span></h3>
+            <h3 id="p1-title"><span id="p1-symbol-sb">❌</span><span id="p1-name-sb">Player 1</span>: <span id="p1-score">0</span></h3>
+            <h3 id="p2-title"><span id="p2-symbol-sb">⭕️</span><span id="p2-name-sb">Player 2</span>: <span id="p2-score">0</span></h3>
           </div>
 
           <div class="score-column"><p id="message-board"></p></div>
@@ -80,8 +80,8 @@
           <div class="score-column">
             <h3>Mode</h3>
             <select class="score-select">
-              <option>Player vs Player</option>
-              <option>Player vs Computer</option>
+              <option data-value="pvp">Player vs Player</option>
+              <option data-value="pvc">Player vs Computer</option>
             </select>
           </div>
         </div>

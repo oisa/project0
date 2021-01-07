@@ -212,6 +212,10 @@ h3 > span {
   outline: none;
 }
 
+#p1-symbol-sb, #p2-symbol-sb {
+  margin-right: 5px;
+}
+
 #reset {
   display: none;
   transition: all 0.25s ease-out;
@@ -221,10 +225,20 @@ h3 > span {
 
 /* --------- Welcome Sequence --------- */
 
-.title {
-  color: #7bfbcc;
+.square-title {
   background-color: #150bc4;
+  margin: 0;
+  text-align: center;
+}
+
+.content-title {
+  color: #7bfbcc;
   font-weight: 400;
+  font-family: 'Space Mono', monospace;
+  font-size: 18px;
+  margin: 0;
+  width: 80%;
+  text-align: center;
 }
 
 .welcome-xox {
@@ -249,9 +263,13 @@ h3 > span {
 }
 
 .choose-player-info > p {
-  font-size: 14px;
+  /* font-size: 14px; */
   margin: 0;
   margin-bottom: 5px;
+}
+
+.symbol-title {
+  font-size: 28px;
 }
 
 .choose-player-info > input {
@@ -304,4 +322,8 @@ select {
   border: #150bc4 solid 1px;
   color: #150bc4;
   background-color: #7bfbcc;
+}
+
+.warning {
+  color: #AF2BAA;
 }
