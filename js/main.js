@@ -139,6 +139,10 @@ const restoreSettingsComputer = function () {
   $('#p2-info').find('input').attr('style', 'display: none;');
   $('#p2-symbol-title').addClass('symbol-title').text(`👾`);
   $('#p2-info').find('select').attr('style', 'display: none;');
+  player1.score = 0; // Update player scores in object to zero
+  player2.score = 0;
+  $('#p1-score').text(player1.score); // Update player scores on scoreboard
+  $('#p2-score').text(player2.score);
 };
 
 const restoreSettingsPlayer = function () {
@@ -150,6 +154,10 @@ const restoreSettingsPlayer = function () {
   $('#p2-info').find('input').attr('style', 'display: inline-block;').val('');
   $('#p2-symbol-title').removeClass('symbol-title').text(`What's yo flava?`);
   $('#p2-info').find('select').attr('style', 'display: block;');
+  player1.score = 0; // Update player scores in object to zero
+  player2.score = 0;
+  $('#p1-score').text(player1.score); // Update player scores on scoreboard
+  $('#p2-score').text(player2.score);
 };
 
 // Change game type if selected via dropdown on welcome screen
