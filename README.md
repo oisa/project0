@@ -6,7 +6,7 @@ Yes, it's been done time and time again, though I hope you can enjoy my take on 
 
 Have a crack at it [here](https://oisa.github.io/tic-tac-toe/). 🤫
 
-![View the gameplay](/tic-tac-toe-gameplay-480.gif)
+![View the gameplay](/main.png)
 
 ---
 
