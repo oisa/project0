@@ -14,12 +14,13 @@ let player2 = {
   score: 0
 }
 
-let gamePlay = false;
-let gameType = 'pvp';
-let currentPlayer = player1;
+let gamePlay = false; // Used to determine functions from clicks on the board squares (i.e. game play or welcome screen or reset board function)
+let gameType = 'pvp'; // Used to distinguish logic beween Player vs Player and Player vs c0mput3r game modes
+let currentPlayer = player1; // Determines current player, used for messages predominantly
 let oponentPlayer = player2;
-let availableOptions = []; // array for generating available options for computer selection
-let compChoice;
+let availableOptions = []; // Array for generating available options for computer selection
+let compChoice; // Variable to represent c0mput3r choice
+let clickCount = 0; // Count clicks to determine which player is able to select an available square
 
 let gameStatus = [
   ['', 0],
@@ -33,7 +34,7 @@ let gameStatus = [
   ['', 8]
 ];
 
-let gameStatusSingleArray = ['', '', '', '', '', '', '', '', '']; // draw condition on line 228 in game validation still using it as the new one isn't working with that method. Need to refactor.
+let gameStatusSingleArray = ['', '', '', '', '', '', '', '', '']; // used only for draw condition on 391. Will refactor to use gameStatus
 
 const winningCombos = [
   [0, 1, 2],
@@ -46,11 +47,10 @@ const winningCombos = [
   [2, 4, 6]
 ];
 
-let clickCount = 0;
 
 ///////////////////////////////// FUNCTIONS ////////////////////////////////////
 
-//////////////////////// RETRIEVE FROM LOCALSTORAGE ////////////////////////////
+//////////////////////// RETRIEVE FROM LOCAL STORAGE ///////////////////////////
 
 // Retrieve the object from storage alongside function to update existing object
 let retrievedObjectPlayer1 = JSON.parse(localStorage.getItem('player1'));
@@ -58,11 +58,11 @@ let retrievedObjectPlayer2 = JSON.parse(localStorage.getItem('player2'));
 
 const updateScoresFromLocalStorage = function () {
 
-  if (retrievedObjectPlayer1 !== null) {
+  if (retrievedObjectPlayer1 !== null) { // only update information if there is anything stored in Local Storage
 
     if(retrievedObjectPlayer1.score >= player1.score || retrievedObjectPlayer2.score >= player2.score || player1.symbol !== retrievedObjectPlayer1.symbol || player2.symbol !== retrievedObjectPlayer1.symbol) {
 
-      player1 = retrievedObjectPlayer1;
+      player1 = retrievedObjectPlayer1; // Update player objects in DOM with one present in Local Storage
       player2 = retrievedObjectPlayer2;
 
       $('#p1-score').text(player1.score); // Update player scores on scoreboard
@@ -85,25 +85,6 @@ updateScoresFromLocalStorage(); // run this function on page load
 
 //////////////////////// WELCOME SEQUENCE FUNCTIONS ////////////////////////////
 
-// Landing, welcome screen with name allocation
-$(`#4`).find('.content').addClass('content-title').html(`<p>Loading...</p>`);
-$('#message-board').text(`Thinking... Pondering...`);
-
-let welcome = true;
-
-// Set delay for welcome sequence to occur for deliberate UX purpose
-function welcomeScene() {
-
-  setTimeout(function(){
-
-    welcomeSec();
-
-  }, 1100);
-
-};
-
-welcomeScene();
-
 // Invert squares function
 const invertSquares = function () {
 
@@ -117,7 +98,24 @@ const invertSquares = function () {
 
 };
 
-// Welcome sequence function - SHOW
+// Landing, welcome screen with name allocation
+$(`#4`).find('.content').addClass('content-title').html(`<p>Loading...</p>`);
+$('#message-board').text(`Thinking... Pondering...`);
+
+let welcome = true;
+
+// Set delay for welcome sequence to occur for deliberate UX purpose
+function welcomeScene() {
+
+  setTimeout(function(){
+    welcomeSec();
+  }, 1100);
+
+};
+
+welcomeScene();
+
+// Welcome sequence function - Show
 const welcomeSec = function () {
 
   invertSquares();
@@ -135,7 +133,7 @@ const welcomeSec = function () {
 
 };
 
-// Welcome sequence function - HIDE
+// Welcome sequence function - Hide
 const hideWelcomeSec = function () {
 
   $('#0, #8').find('.content').removeClass('welcome-xox').text('O');
@@ -150,6 +148,7 @@ const hideWelcomeSec = function () {
 
 // Game type selection function with computer settings updated if chosen
 const restoreSettingsComputer = function () {
+
   player2.name = 'c0mput3r';
   player2.symbol = '👾';
   $('#p2-name-sb').text(`${player2.name}`);
@@ -159,9 +158,11 @@ const restoreSettingsComputer = function () {
   $('#p2-symbol-title').addClass('symbol-title').text(`👾`);
   $('#p2-info').find('select').attr('style', 'display: none;');
   resetScores();
+
 };
 
 const restoreSettingsPlayer = function () {
+
   player2.name = 'Player 2';
   player2.symbol = $('#p2-symbol-select option:selected').text();
   $('#p2-name-sb').text(`${player2.name}`);
@@ -171,10 +172,11 @@ const restoreSettingsPlayer = function () {
   $('#p2-symbol-title').removeClass('symbol-title').text(`What's yo flava?`);
   $('#p2-info').find('select').attr('style', 'display: block;');
   resetScores();
+
 };
 
 // Change game type if selected via dropdown on welcome screen
-$('#game-select-welcome').change(function() {
+$('#game-select-welcome').change(function () {
 
   gameType = $('#game-select-welcome').find('option:selected').data('value');
   $('#game-select-footer').val(`${gameType}`);
@@ -190,7 +192,7 @@ $('#game-select-welcome').change(function() {
 });
 
 // Change game type if selected via dropdown in the footer
-$('#game-select-footer').change(function() {
+$('#game-select-footer').change(function () {
 
   gameType = $('#game-select-footer').find('option:selected').data('value');
   $('#game-select-welcome').val(`${gameType}`);
@@ -208,36 +210,36 @@ $('#game-select-footer').change(function() {
 
 ////////////////////// DETERMINE NAMES AND SYMBOLS /////////////////////////////
 
-// Player 1
-$('#p1-symbol-select').change(function() {
-
-  player1.symbol = $('#p1-symbol-select option:selected').text();
-  $('#p1-symbol-sb').text(`${player1.symbol}`);
-
-});
-
-$('#p1-info').find('input').on('keyup', function () {
+// Player 1 - dynamic name and symbol input print to scoreboard
+$('#p1-info').find('input').on('keyup', function () { // Name
 
   player1.name = $('#p1-info').find('input').val();
   $('#p1-name-sb').text(`${player1.name}`);
 
 });
 
-// Player 2
-$('#p2-symbol-select').change(function() {
+$('#p1-symbol-select').change(function () { // Symbol
 
-  if (gameType === 'pvp') { // must be pvp to action anything
-    player2.symbol = $('#p2-symbol-select option:selected').text();
-    $('#p2-symbol-sb').text(`${player2.symbol}`);
+  player1.symbol = $('#p1-symbol-select option:selected').text();
+  $('#p1-symbol-sb').text(`${player1.symbol}`);
+
+});
+
+// Player 2 - dynamic name and symbol input print to scoreboard
+$('#p2-info').find('input').on('keyup', function () { // Name
+
+  if (gameType === 'pvp') { // game mode must be pvp to action anything for Player 2
+    player2.name = $('#p2-info').find('input').val();
+    $('#p2-name-sb').text(`${player2.name}`);
   };
 
 });
 
-$('#p2-info').find('input').on('keyup', function () {
+$('#p2-symbol-select').change(function () { // Symbol
 
-  if (gameType === 'pvp') { // must be pvp to action anything
-    player2.name = $('#p2-info').find('input').val();
-    $('#p2-name-sb').text(`${player2.name}`);
+  if (gameType === 'pvp') { // game mode must be pvp to action anything for Player 2
+    player2.symbol = $('#p2-symbol-select option:selected').text();
+    $('#p2-symbol-sb').text(`${player2.symbol}`);
   };
 
 });
@@ -249,11 +251,15 @@ const updatePlayerInfo = function () {
   let p2Name = $('#p2-info').find('input').val();
 
   if (p1Name === '') {
+
     player1.name = 'Player 1';
+
   }
 
   else {
+
     player1.name = p1Name; // update player1 name with user input
+
   }
 
   if (gameType === 'pvp') { // if player vs player mode selected
@@ -288,7 +294,9 @@ let winnerSq3;
 const winningSq = function (first, second, third) {
 
   $(`#${first}`).find('.content').addClass('content-invert content-win').html(`<p class="win-symbol-place">${currentPlayer.symbol}</p><span style="font-style: italic;">${randomise(winningMessages)}!</span>`);
+
   $(`#${second}`).find('.content').addClass('content-invert content-win').html(`<p class="win-symbol-place">${currentPlayer.symbol}</p>${currentPlayer.name}, you won! 🥳`);
+
   $(`#${third}`).find('.content').addClass('content-invert content-win').html(`<p class="win-symbol-place">${currentPlayer.symbol}</p>1x point for you, ${currentPlayer.name}<div id="new-game-button">Play again!</div>`);
 
 };
@@ -307,8 +315,10 @@ const invertSquaresDraw = function () {
 
 // Randomise function
 const randomise = function (array) {
+
   let randomIndex = Math.floor(Math.random() * array.length);
   return array[randomIndex];
+
 };
 
 // Determine available options after selection
