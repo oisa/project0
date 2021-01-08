@@ -34,7 +34,7 @@ let gameStatus = [
   ['', 8]
 ];
 
-let gameStatusSingleArray = ['', '', '', '', '', '', '', '', '']; // Used only for draw condition on 391. Will refactor to use gameStatus
+let gameStatusSingleArray = ['', '', '', '', '', '', '', '', '']; // used only for draw condition on 391. Will refactor to use gameStatus
 
 const winningCombos = [
   [0, 1, 2],
@@ -46,6 +46,7 @@ const winningCombos = [
   [0, 4, 8],
   [2, 4, 6]
 ];
+
 
 ///////////////////////////////// FUNCTIONS ////////////////////////////////////
 
