@@ -51,6 +51,7 @@ Notice anything else that's out of whack? [Holla at me](mailto:j.m.o.carlton@gma
 - Shuffle feature - forgot your name and can't pick a symbol? This will help! 🔀
 - Play via keyboard - ability for players to use keys instead of the clicky mouse. 🐭
 - Add ability for multi-player games between different browsers (i.e.).
+- Show a shaded version of the current player's symbol on hovering available squares during game.
 
 
 ### Credit & Shoutouts 🗣
