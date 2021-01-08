@@ -6,7 +6,7 @@ Yes, it's been done time and time again, though I hope you can enjoy my take on 
 
 Have a crack at it [here](https://oisa.github.io/tic-tac-toe/). 🤫
 
-![View the gameplay via GIF](/images/tic-tac-toe-gameplay-480.gif)
+![View the gameplay](/tic-tac-toe-gameplay-480.gif)
 
 ---
 
@@ -16,7 +16,7 @@ Have a crack at it [here](https://oisa.github.io/tic-tac-toe/). 🤫
 
 Noughts and crosses can be boring, why not pick an emoji instead?
 
-![Image of user choosing their symbol](/images/pick-yo-symbol.png)
+![Image of user choosing their symbol](/pick-yo-symbol.png)
 
 ---
 
@@ -24,7 +24,7 @@ Noughts and crosses can be boring, why not pick an emoji instead?
 
 Win all you can against the c0mput3r now because it will soon learn to outsmart you*. 🧠
 
-![Image of scoreboard](/images/vs-computer.png)
+![Image of scoreboard](/vs-computer.png)
 
 ---
 
@@ -32,7 +32,7 @@ Win all you can against the c0mput3r now because it will soon learn to outsmart 
 
 Scores, names and symbols are stored locally so if you refresh the page accidentally, your info will still be there. Simply change game modes or click the 'Reset' button down the bottom to wipe this if you want to start afresh.
 
-![Image of scoreboard](/images/scoreboard.png)
+![Image of scoreboard](/scoreboard.png)
 
 ---
 
