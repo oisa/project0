@@ -63,7 +63,9 @@ Shouts out to the frameworks that helped make it look speccy too:
 - [Animate.css](https://animate.style/)
 - [Tilt.js](https://gijsroge.github.io/tilt.js/)
 
-Special mention also to [jQuery](https://github.com/jquery) which I've used in the build - some may _**react**_ a certain way to this 😂, though it certainly helped with speed of production and is the beginning of exploring building things with JS - it's been fun and I look forward to learning new frameworks that work similarly. 🖼
+Special mention to [Stack Overflow](https://stackoverflow.com/) and all the users and contributions there that helped further understanding jQuery and good 'ol vanilla JS 🍦 method use.
+
+Special mention also to [jQuery](https://github.com/jquery) which I've used in the build - some may _**react**_ a certain way to this 😂, though it certainly helped with speed of production and is the beginning of exploring building things with JS - it's been fun and I look forward to learning new frameworks that work similarly to improve the ease-of-use for vanilla of JS. 🖼
 
 ---
 

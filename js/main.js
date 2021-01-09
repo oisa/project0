@@ -310,7 +310,7 @@ const invertSquaresDraw = function () {
   for (let i = 0; i < 9; i++) {
     setTimeout(function() {
       $(`#${i}`).addClass('square-invert-alt');
-      $(`#4`).find('.content').addClass('content-win').html(`Dangit! 🧐 <div id="new-game-button">Play again!</div>`);
+      $(`#4`).find('.content').addClass('content-win').html(`Dangit, a draw! 🧐 <div id="new-game-button">Play again!</div>`);
     }, 25 * i);
   }
 
